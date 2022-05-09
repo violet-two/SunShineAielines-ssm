@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office User Menu</title>
+    <link rel="stylesheet" href="./css/airline.css">
+    <link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="./js/jquery-3.4.1.min.js"></script>
+    <script src="./js/sunshine.js"></script>
+    <script src="./js/searchFlight.js"></script>
+</head>
+<body>
+    <div class="top">
+        <div class="logo">
+            <img class="logoimg" src="./image/logo/logo1.png" alt="">
+        </div>   
+        <div class="status">
+            Office User Menu
+        </div>
+    </div>
+    <div class="menulist">
+        <div class="list_sf" style="color: #F79420;">Search Flights</div>
+        <a href="./FlightStatus.html"><div class="list_sf">Flight Status</div></a>
+        <div class="list_out">Logout</div>
+    </div> 
+    <div class="searchlist"> 
+        <div class="optionone" style="height: 60px;">
+            <P><input class="oneWay wayRadio" name="way" type="radio" checked="checked" value="1"/>One Way</P>
+            <P><input class="roundWays wayRadio" name="way" type="radio" value="2"/>Round Ways</P>
+        </div>
+        <div class="dropdown">
+            <p >From City:</p>
+            <select class="fromCity">
+                <!-- <option value="volvo">Beijing</option> -->
+            </select>
+        </div>
+        <div class="dropdown">
+            <p>To City:</p>
+            <select class="toCity">
+                <!-- <option value="volvo">Rome</option> -->
+            </select>
+        </div>
+        <div class="optiondate">
+            <p>Departure Date：</p>
+            <input class="departureDate" style="width: 120px;" type="date" value="2019-08-29"/>
+        </div>
+        <div class="optiondate returnDateCondititon" style="display: none;">
+            <p>Return Date：</p>
+            <input class="returnDate" style="width: 120px;" type="date" value="2015-08-25" min=""/>
+        </div>
+        <div class="dropdown">
+            <p >Cabin Type：</p>
+            <select class="cabinType">
+                <option value="3">First</option>
+                <option value="2">Business</option>
+                <option value="1">Economy</option>
+            </select>
+        </div>
+        <div class="dropdown">
+            <p>Flight Type：</p>
+            <select class="flightType">
+                <option value="All">All</option>
+                <option value="Non-stop">Non-stop</option>
+                <option value="1-stop">1-stop</option>
+            </select>
+        </div>
+        <div class="searchbutton">
+            <input class="searchFlight" type="button"name="" id="show" value="Search" />
+        </div>            
+    </div>    
+    <div class="msgtitle"> 
+        Departure Flights：
+    </div>
+    <div class="msglist departureFlights">
+          
+    </div>
+    <div class="msgtitle returnMsgtitle" style="display: none;">
+        Return Flights：
+    </div>
+    <div class="msglist returnFlights" style="display: none;">
+          
+    </div>
+    <div class="editbutton" >
+        <button type="button">Confirm</button>
+    </div>
+</body>
+</html>
