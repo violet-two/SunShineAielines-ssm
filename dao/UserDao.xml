@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.wtbu.dao.UserDao">
+    <select id="login" resultType="hashmap">
+        select UserId,Email,FirstName,LastName,RoleId from users where email = #{email} and password = #{password}
+    </select>
+    <select id="findEmail" resultType="hashmap">
+        select * from users where email = #{email}
+    </select>
+    <update id="updatePassword">
+        update users set password = #{password} where userId = #{userId}
+    </update>
+    <select id="findUserId" resultType="hashmap">
+        select userId from users where userId = #{userId}
+    </select>
+
+    <select id="getCountAll" resultType="integer">
+        select COUNT(*) from users where (FirstName like concat('%',#{name},'%') or LastName like concat('%',#{name},'%'))
+    </select>
+
+    <select id="getCountByRoleId" resultType="integer">
+        select COUNT(*)
+        from users where
+        roleId = #{roleId} and (FirstName like concat('%',#{name},'%') or LastName like concat('%',#{name},'%'))
+    </select>
+
+    <select id="getUserListALl" resultType="hashmap">
+        select * from users where (FirstName like concat('%'#{name},'%') or LastName like concat('%',#{name},'%')) limit #{startPage},#{pageSize}
+    </select>
+
+    <select id="getUserListALlByRoleId" resultType="hashmap">
+        select * from users where roleId = #{roleId} and (FirstName like concat('%',#{name},'%') or LastName like concat('%',#{name},'%')) limit #{startPage},#{pageSize}
+    </select>
+
+    <insert id="addUser" >
+        insert into users(email,password,firstName,lastName,gender,dateOfBirth,phone,photo,address,roleId) values (#{email},#{password},#{firstName},#{lastName},#{gender},#{dateOfBirth},#{phone},#{photo},#{address},#{roleId})
+    </insert>
+</mapper>

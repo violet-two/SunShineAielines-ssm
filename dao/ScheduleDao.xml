@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.wtbu.dao.ScheduleDao">
+    <select id="getSchedule" resultType="hashmap">
+        SELECT
+            `schedule`.Date,
+            `schedule`.Time,
+            `schedule`.EconomyPrice,
+            `schedule`.FlightNumber,
+            `schedule`.Gate,
+            `schedule`.ScheduleId,
+            `schedule`.`Status`,
+            route.DepartureAirportIATA,
+            DepartCity.CityName AS DepartCityName,
+            route.ArrivalAirportIATA,
+            ArriveCity.CityName AS ArriveCityName,
+            aircraft.`Name`
+        from `schedule`
+                 left join aircraft on `schedule`.AircraftId = aircraft.AircraftId
+                 left join  route on `schedule`.RouteId = route.RouteId
+                 left join airport as DepartAirPort on route.DepartureAirportIATA = DepartAirPort.IATACode
+                 left join city as DepartCity on DepartAirPort.CityCode = DepartCity.CityCode
+                 left join airport as ArrivalPort on route.ArrivalAirportIATA = ArrivalPort.IATACode
+                 left join city as ArriveCity on ArrivalPort.CityCode = ArriveCity.CityCode
+        where DepartCity.CityName = #{fromCity} and ArriveCity.CityName = #{toCity}
+        and `schedule`.Date between #{startDate} and #{endDate}
+
+    </select>
+
+    <update id="updateSchedule">
+        update `schedule` set `Status` = #{status} where scheduleId = #{scheduleId}
+    </update>
+
+    <select id="getTicketStatistics" resultType="hashmap">
+        select
+            year(date) as Year,
+            month(date) as Month,
+            count(DISTINCT `schedule`.ScheduleId) as FlightsAmount,
+            count(flightreservation.ReservationId) as TicketsAmount,
+            sum(Payment) as TicketsRevenue
+        from `schedule`
+            LEFT JOIN flightreservation on `schedule`.ScheduleId = flightreservation.ScheduleId
+        where Date BETWEEN #{startDate} AND #{endDate}
+        GROUP BY year(date),month(date)
+        ORDER BY year(date),month(date)
+    </select>
+
+    <select id="findScheduleById" resultType="hashmap">
+        select ScheduleId from `schedule` where ScheduleId = #{scheduleId}
+    </select>
+</mapper>

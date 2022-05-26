@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--设置别名-->
+    <typeAliases>
+        <package name="edu.wtbu.pojo"/>
+    </typeAliases>
+    <!-- sql mapper(sql映射文件)的位置-->
+    <mappers>
+        <package name="edu.wtbu.dao"/>
+    </mappers>
+</configuration>
